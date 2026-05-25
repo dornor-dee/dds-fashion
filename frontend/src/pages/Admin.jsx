@@ -194,7 +194,20 @@ const markAsDelivered = async (id) => {
   }
 };
 
+const deleteOrder = async (id) => {
+  if (!confirm("Delete this order?")) return;
 
+  try {
+    await API.delete(`/api/orders/${id}`);
+
+    setOrders(orders.filter((order) => order._id !== id));
+
+    alert("Order deleted");
+  } catch (error) {
+    console.log(error);
+    alert("Failed to delete order");
+  }
+};
 
 
   return (
@@ -406,6 +419,12 @@ const markAsDelivered = async (id) => {
     Mark Delivered
   </button>
 )}
+<button
+  onClick={() => deleteOrder(order._id)}
+  className="mt-3 rounded-full bg-red-500 px-4 py-2 text-sm font-bold text-white hover:bg-red-400"
+>
+  Delete Order
+</button>
 
                     </div>
                   </div>
