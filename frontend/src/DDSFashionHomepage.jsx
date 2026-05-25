@@ -9,13 +9,17 @@ import QuickViewModal from "./components/QuickViewModal";
 import ProductCard from "./components/ProductCard";
 
 const categories = [
-  "Luxury Dresses",
-  "Casual Dresses",
-  "Party Dresses",
-  "African Prints",
-  "Wedding Guest",
-  "Two-Piece Sets",
-  "Accessories",
+  "Women",
+  "Men",
+  "Sneakers",
+  "Watches",
+  "Luxury Accessories",
+  "Streetwear",
+  "Bags",
+  "Glasses",
+  "Chains",
+  "Luxury Accessories",
+  "Hoodies",
 ];
 
 export default function DDSFashionHomepage() {
@@ -270,7 +274,7 @@ export default function DDSFashionHomepage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {categories.slice(0, 6).map((category, index) => (
+            {categories.slice(0, 6).map((category) => (
               <a
                 key={category}
                 href="/shop"
@@ -279,10 +283,29 @@ export default function DDSFashionHomepage() {
               >
                 <img
                   src={
-                    index % 2 === 0
-                      ? "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=900&q=80"
-                      : "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80"
-                  }
+  {
+    Women:
+      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
+    Men:
+      "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=900&q=80",
+    Sneakers:
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80",
+    Watches:
+      "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80",
+    Chains:
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=80",
+    Streetwear:
+      "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=80",
+    Bags:
+      "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=80",
+    Glasses:
+      "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=900&q=80",
+    "Luxury Accessories":
+      "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?auto=format&fit=crop&w=900&q=80",
+    Hoodies:
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
+  }[category]
+}
                   alt={category}
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
                 />

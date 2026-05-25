@@ -19,14 +19,15 @@ export default function Navbar({ userInfo, cart, setShowCart }) {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-2xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* LOGO */}
-        <a href="/" className="group">
-          <h1 className="text-3xl font-black tracking-[0.3em] text-yellow-400 transition group-hover:tracking-[0.4em]">
-            DDS
-          </h1>
-          <p className="text-xs uppercase tracking-[0.45em] text-white/60">
-            Fashion
-          </p>
-        </a>
+      {/* LOGO */}
+{/* LOGO */}
+<a href="/" className="flex items-center">
+  <img
+    src="/images/dds-fashion-logo.png"
+    alt="DDS Fashion Logo"
+    className="h-26 w-auto object-contain"
+  />
+</a>
 
         {/* DESKTOP LINKS */}
         <div className="hidden items-center gap-8 text-sm font-bold uppercase tracking-widest text-white/80 md:flex">
