@@ -13,10 +13,23 @@ export default function TrendingSlider({
   setSelectedProduct,
 }) {
   return (
-    <section className="bg-white px-6 py-20 text-black">
+    <section className="relative overflow-hidden px-6 py-24 text-white">
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="absolute inset-0 h-full w-full object-cover"
+  >
+    <source src="/videos/trending-bg.mp4" type="video/mp4" />
+  </video>
+
+  <div className="absolute inset-0 bg-black/70" />
+
+  <div className="relative z-10 mx-auto max-w-7xl">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
-          <p className="text-sm font-black uppercase tracking-[0.4em] text-yellow-600">
+          <p className="text-sm font-black uppercase tracking-[0.4em] text-yellow-400">
             Hot Right Now
           </p>
 
@@ -38,7 +51,7 @@ export default function TrendingSlider({
               slidesPerView: 2.2,
             },
             1024: {
-              slidesPerView: 4,
+             slidesPerView: 4,
             },
           }}
         >
@@ -55,6 +68,7 @@ export default function TrendingSlider({
             </SwiperSlide>
           ))}
         </Swiper>
+      </div>
       </div>
     </section>
   );
