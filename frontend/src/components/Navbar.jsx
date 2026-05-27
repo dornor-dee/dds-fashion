@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 
 export default function Navbar({ userInfo, cart, setShowCart }) {
   const [openMenu, setOpenMenu] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+const [lastScrollY, setLastScrollY] = useState(0);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -15,9 +17,29 @@ export default function Navbar({ userInfo, cart, setShowCart }) {
 
   const cartCount = cart.reduce((total, item) => total + item.qty, 0);
 
+  useEffect(() => {
+  const handleScroll = () => {
+    if (window.scrollY > lastScrollY) {
+      setShowNavbar(false);
+    } else {
+      setShowNavbar(true);
+    }
+
+    setLastScrollY(window.scrollY);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [lastScrollY]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/60 backdrop-blur-2xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <header
+  className={`fixed left-0 top-0 z-50 w-full px-4 py-4 transition-transform duration-500 ${
+    showNavbar ? "translate-y-0" : "-translate-y-full"
+  }`}
+>
+      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/10 bg-black/55 px-6 py-3 shadow-2xl backdrop-blur-2xl">
         {/* LOGO */}
       {/* LOGO */}
 {/* LOGO */}

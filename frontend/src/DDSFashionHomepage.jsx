@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import CartPanel from "./components/CartPanel";
 import QuickViewModal from "./components/QuickViewModal";
 import ProductCard from "./components/ProductCard";
+import LoadingScreen from "./components/LoadingScreen";
 
 const categories = [
   "Women",
@@ -27,10 +28,9 @@ export default function DDSFashionHomepage() {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [showCart, setShowCart] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [recentlyViewed, setRecentlyViewed] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -89,17 +89,6 @@ export default function DDSFashionHomepage() {
     (total, item) => total + Number(item.price) * item.qty,
     0
   );
-
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesCategory =
-      selectedCategory === "All" || product.category === selectedCategory;
-
-    return matchesSearch && matchesCategory;
-  });
 
   const addRecentlyViewed = (product) => {
     let updatedRecent =
@@ -179,8 +168,17 @@ export default function DDSFashionHomepage() {
   loadSavedData();
 }, []);
 
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setLoading(false);
+  }, 2200);
+
+  return () => clearTimeout(timer);
+}, []);
+
   return (
     <main className="min-h-screen bg-white text-black">
+      {loading && <LoadingScreen />}
       {showCart && (
         <CartPanel
           cart={cart}
@@ -365,65 +363,6 @@ export default function DDSFashionHomepage() {
         </div>
       </section>
 
-      {/* PRODUCTS */}
-      <section id="shop" className="bg-[#0a0a0a] px-6 py-20 text-white">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 text-center">
-            <p className="text-sm font-black uppercase tracking-[0.4em] text-yellow-400">
-              DDS Collection
-            </p>
-
-            <h2 className="mt-3 text-5xl font-black uppercase">
-              New Arrivals
-            </h2>
-          </div>
-
-          {/* SEARCH + FILTER */}
-          <div className="mb-12 grid gap-5 md:grid-cols-2">
-            <input
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search dresses..."
-              className="w-full rounded-full border border-white/10 bg-white/10 px-7 py-5 text-lg text-white placeholder:text-white/40 outline-none focus:border-yellow-400"
-            />
-
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full rounded-full border border-white/10 bg-white/10 px-7 py-5 text-lg text-white outline-none focus:border-yellow-400"
-            >
-              <option className="bg-black text-white" value="All">
-                All Categories
-              </option>
-
-              {categories.map((category) => (
-                <option
-                  key={category}
-                  value={category}
-                  className="bg-black text-white"
-                >
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {filteredProducts.slice(0, 4).map((product) => (
-              <ProductCard
-                key={product._id}
-                product={product}
-                wishlist={wishlist}
-                toggleWishlist={toggleWishlist}
-                addToCart={addToCart}
-                addRecentlyViewed={addRecentlyViewed}
-                setSelectedProduct={setSelectedProduct}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* RECENTLY VIEWED */}
       {recentlyViewed.length > 0 && (
         <section className="bg-black px-6 py-20 text-white">
@@ -453,28 +392,6 @@ export default function DDSFashionHomepage() {
         </section>
       )}
 
-      {/* NEWSLETTER */}
-      <section className="bg-white px-6 py-20 text-center text-black">
-        <h2 className="text-5xl font-black uppercase">
-          Join The DDS List
-        </h2>
-
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-black/70">
-          Get exclusive drops, discounts, and early access to new fashion
-          collections.
-        </p>
-
-        <div className="mx-auto mt-8 flex max-w-xl overflow-hidden rounded-full border border-black/20">
-          <input
-            placeholder="Enter your email"
-            className="flex-1 px-6 py-4 outline-none"
-          />
-
-          <button className="bg-black px-8 font-black text-white hover:bg-yellow-400 hover:text-black">
-            Subscribe
-          </button>
-        </div>
-      </section>
 
       {/* TRUST BAR */}
       <section className="border-y border-white/10 bg-black px-6 py-10 text-white">
@@ -512,15 +429,129 @@ export default function DDSFashionHomepage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-black px-6 py-12 text-center text-white/60">
-        <p className="text-xl font-black uppercase tracking-[0.3em] text-yellow-400">
-          DDS Fashion
-        </p>
+<footer className="bg-[#050505] px-6 py-20 text-white">
+  <div className="mx-auto grid max-w-7xl gap-14 md:grid-cols-4">
 
-        <p className="mt-3">
-          Wear Confidence • Ghana • Luxury Fashion
-        </p>
-      </footer>
-    </main>
-  );
+    {/* BRAND */}
+    <div>
+      <img
+        src="/images/dds-fashion-logo.png"
+        alt="DDS Fashion"
+        className="h-24 w-auto object-contain"
+      />
+
+      <p className="mt-5 text-sm leading-7 text-white/60">
+        Luxury fashion brand redefining confidence,
+        elegance, and modern streetwear culture.
+      </p>
+    </div>
+
+    {/* SHOP */}
+    <div>
+      <h3 className="text-lg font-black uppercase text-yellow-400">
+        Shop
+      </h3>
+
+      <div className="mt-5 space-y-3 text-white/70">
+        <a
+          href="/shop?category=Women"
+          className="block hover:text-yellow-400"
+        >
+          Women
+        </a>
+
+        <a
+          href="/shop?category=Men"
+          className="block hover:text-yellow-400"
+        >
+          Men
+        </a>
+
+        <a
+          href="/shop?category=Sneakers"
+          className="block hover:text-yellow-400"
+        >
+          Sneakers
+        </a>
+
+        <a
+          href="/shop?category=Watches"
+          className="block hover:text-yellow-400"
+        >
+          Watches
+        </a>
+      </div>
+    </div>
+
+    {/* COMPANY */}
+    <div>
+      <h3 className="text-lg font-black uppercase text-yellow-400">
+        Company
+      </h3>
+
+      <div className="mt-5 space-y-3 text-white/70">
+        <a href="/" className="block hover:text-yellow-400">
+          Home
+        </a>
+
+        <a href="/about" className="block hover:text-yellow-400">
+          About
+        </a>
+
+        <a href="/contact" className="block hover:text-yellow-400">
+          Contact
+        </a>
+
+        <a href="/wishlist" className="block hover:text-yellow-400">
+          Wishlist
+        </a>
+      </div>
+    </div>
+
+    {/* NEWSLETTER */}
+    <div>
+      <h3 className="text-lg font-black uppercase text-yellow-400">
+        Stay Connected
+      </h3>
+
+      <p className="mt-5 text-sm text-white/60">
+        Subscribe for exclusive drops,
+        discounts, and fashion updates.
+      </p>
+
+      <div className="mt-6 overflow-hidden rounded-full border border-white/10">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="w-full bg-transparent px-5 py-4 text-sm outline-none placeholder:text-white/40"
+        />
+      </div>
+
+      <button className="mt-4 rounded-full bg-yellow-400 px-7 py-3 text-sm font-black uppercase text-black transition hover:bg-white">
+        Subscribe
+      </button>
+    </div>
+  </div>
+
+  {/* BOTTOM */}
+  <div className="mx-auto mt-16 flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/40 md:flex-row">
+    <p>© 2026 DDS Fashion. All rights reserved.</p>
+
+    <div className="flex gap-6">
+      <a href="#" className="hover:text-yellow-400">
+        Instagram
+      </a>
+
+      <a href="#" className="hover:text-yellow-400">
+        TikTok
+      </a>
+
+      <a href="#" className="hover:text-yellow-400">
+        YouTube
+      </a>
+    </div>
+  </div>
+</footer>
+</main>
+);
 }
