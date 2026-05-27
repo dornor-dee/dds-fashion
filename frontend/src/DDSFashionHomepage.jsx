@@ -261,71 +261,70 @@ export default function DDSFashionHomepage() {
 </section>
 
       {/* CATEGORY TILES */}
-      <section className="bg-white px-6 py-20 text-black">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center">
-            <p className="text-sm font-black uppercase tracking-[0.4em] text-yellow-600">
-              Shop The Look
+<section className="bg-white px-6 py-20 text-black">
+  <div className="mx-auto max-w-7xl">
+    <div className="mb-12 text-center">
+      <p className="text-sm font-black uppercase tracking-[0.4em] text-yellow-600">
+        Shop The Look
+      </p>
+
+      <h2 className="mt-3 text-5xl font-black uppercase">
+        Categories
+      </h2>
+    </div>
+
+    <div className="grid gap-6 md:grid-cols-3">
+      {categories.slice(0, 6).map((category) => (
+        <a
+          key={category}
+          href={`/shop?category=${encodeURIComponent(category)}`}
+          className="group relative h-[420px] overflow-hidden rounded-3xl"
+        >
+          <img
+            src={
+              {
+                Women:
+                  "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
+                Men:
+                  "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=900&q=80",
+                Sneakers:
+                  "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80",
+                Watches:
+                  "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80",
+                Chains:
+                  "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=80",
+                Streetwear:
+                  "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=80",
+                Bags:
+                  "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=80",
+                Glasses:
+                  "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=900&q=80",
+                "Luxury Accessories":
+                  "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?auto=format&fit=crop&w=900&q=80",
+                Hoodies:
+                  "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
+              }[category]
+            }
+            alt={category}
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+          />
+
+          <div className="absolute inset-0 bg-black/35" />
+
+          <div className="absolute bottom-6 left-6">
+            <h3 className="text-3xl font-black uppercase text-white">
+              {category}
+            </h3>
+
+            <p className="mt-2 font-bold text-yellow-300">
+              Shop Now →
             </p>
-
-            <h2 className="mt-3 text-5xl font-black uppercase">
-              Categories
-            </h2>
           </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {categories.slice(0, 6).map((category) => (
-              <a
-                key={category}
-                href="/shop"
-                onClick={() => setSelectedCategory(category)}
-                className="group relative h-[420px] overflow-hidden rounded-3xl"
-              >
-                <img
-                  src={
-  {
-    Women:
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
-    Men:
-      "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=900&q=80",
-    Sneakers:
-      "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80",
-    Watches:
-      "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80",
-    Chains:
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&q=80",
-    Streetwear:
-      "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=80",
-    Bags:
-      "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=900&q=80",
-    Glasses:
-      "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=900&q=80",
-    "Luxury Accessories":
-      "https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?auto=format&fit=crop&w=900&q=80",
-    Hoodies:
-      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
-  }[category]
-}
-                  alt={category}
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                />
-
-                <div className="absolute inset-0 bg-black/35" />
-
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="text-3xl font-black uppercase text-white">
-                    {category}
-                  </h3>
-
-                  <p className="mt-2 font-bold text-yellow-300">
-                    Shop Now →
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
 
       <TrendingSlider
   products={products}
@@ -410,7 +409,7 @@ export default function DDSFashionHomepage() {
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {filteredProducts.map((product) => (
+            {filteredProducts.slice(0, 4).map((product) => (
               <ProductCard
                 key={product._id}
                 product={product}

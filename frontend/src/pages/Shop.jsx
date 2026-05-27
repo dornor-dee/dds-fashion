@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import API from "../services/api";
 
 import Navbar from "../components/Navbar";
@@ -8,23 +9,32 @@ import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 
 const categories = [
-  "Casual Dresses",
-  "Party Dresses",
-  "African Prints",
-  "Wedding Guest",
-  "Two-Piece Sets",
-  "Accessories",
+  "All",
+  "Women",
+  "Men",
+  "Sneakers",
+  "Watches",
+  "Streetwear",
+  "Bags",
+  "Perfumes",
 ];
 
 export default function Shop() {
+  const [searchParams] = useSearchParams();
+
+  const categoryFromUrl = searchParams.get("category");
+
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const [selectedCategory, setSelectedCategory] = useState(
+    categoryFromUrl || "All"
+  );
+
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   const addToCart = (product) => {

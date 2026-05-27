@@ -13,9 +13,9 @@ export default function ProductCard({
     <Link
       to={`/product/${product._id}`}
       onClick={() => addRecentlyViewed(product)}
-      className="group overflow-hidden rounded-[2rem] border border-white/10 bg-black transition hover:-translate-y-2 hover:border-yellow-400/60"
+      className="group overflow-hidden rounded-2xl border border-white/10 bg-black transition hover:-translate-y-2 hover:border-yellow-400/60"
     >
-      <div className="relative h-[260px] overflow-hidden">
+      <div className="relative h-[200px] overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
@@ -47,7 +47,7 @@ export default function ProductCard({
       <div className="p-4">
         <h3 className="text-base font-black">{product.name}</h3>
 
-        <p className="mt-2 text-lg font-black text-yellow-400">
+        <p className="mt-2 text-base font-black text-yellow-400">
           ₵{product.price}
         </p>
 
@@ -61,7 +61,7 @@ export default function ProductCard({
             e.stopPropagation();
             addToCart(product);
           }}
-          className="mt-5 w-full rounded-full bg-yellow-400 px-6 py-3 font-bold text-black hover:bg-yellow-300"
+          className="mt-5 w-full rounded-full bg-yellow-400 px-6 py-2.5 font-bold text-black hover:bg-yellow-300"
         >
           Add to Cart
         </button>
